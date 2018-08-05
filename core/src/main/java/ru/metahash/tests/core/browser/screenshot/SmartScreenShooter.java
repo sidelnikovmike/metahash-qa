@@ -31,7 +31,7 @@ public class SmartScreenShooter {
     @Attachment(value = "{description}", type = "image/png")
     public static byte[] saveScreenShot(String description) {
         int pageHeight = getPageHeight();
-        long viewportHeight = getViewPortHeight();
+        long viewportHeight = getViewPortHeight() / 2;
         LOGGER.info(String.format("Viewport height: %s ", viewportHeight));
         List<byte[]> images = new ArrayList<>();
         images.add(getScreenshot());
@@ -44,7 +44,7 @@ public class SmartScreenShooter {
                 images.add(getScreenshot());
             }
         }
-        return imageToByteArray(prepareImage(images, pageHeight * 2, getViewPortWidth() * 2));
+        return imageToByteArray(prepareImage(images, pageHeight * 2, getViewPortWidth() * 2, viewportHeight));
     }
 
 
@@ -62,7 +62,7 @@ public class SmartScreenShooter {
         return image;
     }
 
-    private static BufferedImage prepareImage(List<byte[]> images, int height, int width) {
+    private static BufferedImage prepareImage(List<byte[]> images, int height, int width, long viewportHeight) {
 //        create a new buffer and draw two image into the new image
         LOGGER.info(String.format("Image height: %s ", height));
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -74,7 +74,7 @@ public class SmartScreenShooter {
             bufImage = byteArrayToImage(image);
             g2.drawImage(bufImage, null, 0, heightOffset);
             LOGGER.info(String.format("Buf image height: %s ", bufImage.getHeight()));
-            heightOffset += getViewPortHeight() * 2;
+            heightOffset += viewportHeight * 2;
         }
         LOGGER.info("Final image preparing finished...");
         g2.dispose();
