@@ -16,10 +16,10 @@ public class LocalConfigurationReader implements IConfigurationReader {
     public List<RunConfiguration> getConfigurations() {
         return Arrays.asList(
                 new RunConfiguration()
-                        .withBrowserName("Chrome")
-                        .withBrowserVersion("66x64")
+                        .withBrowserName("chrome")
+                        .withBrowserVersion("67.0")
                         .withOs("Mac OSX 10.13")
-                        .withRunType(RunType.CBT)
+                        .withRunType(RunType.SELENOID)
 //                new RunConfiguration()
 //                        .withBrowserName("MicrosoftEdge")
 //                        .withBrowserVersion("17")
