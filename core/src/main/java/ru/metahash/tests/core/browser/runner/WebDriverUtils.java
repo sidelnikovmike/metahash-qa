@@ -76,7 +76,7 @@ public class WebDriverUtils {
      * @param runConfiguration configuration to run browser
      * @return WebDriver instance or exception will be thrown
      */
-    @Step("Init driver for browser {browser}:{version}")
+    @Step("Init driver for configuration {runConfiguration}")
     public static RemoteWebDriver initRemoteDriver(RunConfiguration runConfiguration) {
         LOGGER.info(" Begin init RemoteWebDriver for browser: " + runConfiguration.getBrowserName() + ":" + runConfiguration.getBrowserVersion() +
                 "\n on remote URL: " + WEB_CONFIG.getRemoteHubUrl() +
