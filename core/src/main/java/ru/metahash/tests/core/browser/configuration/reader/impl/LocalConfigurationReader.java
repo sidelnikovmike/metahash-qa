@@ -19,12 +19,12 @@ public class LocalConfigurationReader implements IConfigurationReader {
                         .withBrowserName("Chrome")
                         .withBrowserVersion("66x64")
                         .withOs("Mac OSX 10.13")
-                        .withRunType(RunType.CBT),
-                new RunConfiguration()
-                        .withBrowserName("MicrosoftEdge")
-                        .withBrowserVersion("17")
-                        .withOs("Windows 10")
-                        .withRunType(RunType.CBT),
+                        .withRunType(RunType.CBT)
+//                new RunConfiguration()
+//                        .withBrowserName("MicrosoftEdge")
+//                        .withBrowserVersion("17")
+//                        .withOs("Windows 10")
+//                        .withRunType(RunType.CBT),
 //                new RunConfiguration()
 //                        .withIsMobile(true)
 //                        .withBrowserName("Safari")
@@ -41,14 +41,14 @@ public class LocalConfigurationReader implements IConfigurationReader {
 //                        .withPlatformName("iOS")
 //                        .withDeviceOrientation(DeviceOrientation.LANDSCAPE)
 //                        .withRunType(RunType.CBT),
-                new RunConfiguration()
-                        .withIsMobile(true)
-                        .withBrowserName("Chrome")
-                        .withDeviceName("Nexus 9")
-                        .withPlatformVersion("6.0")
-                        .withPlatformName("Android")
-                        .withDeviceOrientation(DeviceOrientation.PORTRAIT)
-                        .withRunType(RunType.CBT)
+//                new RunConfiguration()
+//                        .withIsMobile(true)
+//                        .withBrowserName("Chrome")
+//                        .withDeviceName("Nexus 9")
+//                        .withPlatformVersion("6.0")
+//                        .withPlatformName("Android")
+//                        .withDeviceOrientation(DeviceOrientation.PORTRAIT)
+//                        .withRunType(RunType.CBT)
         );
     }
 
