@@ -3,6 +3,7 @@ package ru.metahash.tests.web.blocks;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import ru.metahash.tests.core.browser.utils.BrowserUtils;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -21,6 +22,10 @@ public class NavigationBar extends BaseBlock {
         self.$("div[class='offcanvas-button']").shouldBe(visible).click();
     }
 
+    public void clickLangMenuButton() {
+        self.$("div[class='switch-item']").shouldBe(visible).click();
+    }
+
     public void selectElementFromMenu(String text) {
         getMenuElements()
                 .shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1))
@@ -34,5 +39,17 @@ public class NavigationBar extends BaseBlock {
 
     public long getBlockHeight() {
         return BrowserUtils.getElementHeight(BLOCK_LOCATOR);
+    }
+
+    public SelenideElement contactUsButton(){
+        return self.$("a[href*='contacus']");
+    }
+
+    public SelenideElement whitePaperButton(){
+        return self.$ ("a[class*='download-white-paper'");
+    }
+
+    public SelenideElement onePagerButton(){
+        return self.$ ("a[class*='download-one-pager'");
     }
 }

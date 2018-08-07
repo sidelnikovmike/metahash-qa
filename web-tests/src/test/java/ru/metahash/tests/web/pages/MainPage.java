@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import ru.metahash.tests.configuration.TestsConfiguration;
 import ru.metahash.tests.core.browser.utils.BrowserUtils;
 import ru.metahash.tests.web.blocks.NavigationBar;
+import ru.metahash.tests.web.blocks.PromoBlock;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -17,6 +18,8 @@ public class MainPage {
     public NavigationBar navigationBar() {
         return new NavigationBar();
     }
+
+    public PromoBlock promoBlock() {return new PromoBlock();}
 
     public static MainPage openPage() {
         return open(TestsConfiguration.getConfig().getBaseSiteUrl(), MainPage.class);

@@ -40,4 +40,28 @@ public class MainPageSteps {
         return this;
     }
 
+    @Step("Click `Join ICO` button from promo block")
+    public MainPageSteps clickPromoJoinIcoButton(){
+        page.promoBlock().joinICOButton().click();
+        return this;
+    }
+
+    @Step("Click `Contact us` button from navigation")
+    public MainPageSteps clickContactUsFromNavigationBar(){
+        page.navigationBar().contactUsButton().click();
+        return this;
+    }
+
+    @Step("Click `White Paper` button from navigation")
+    public MainPageSteps clickWhitePaperFromNavigationBar(){
+        page.navigationBar().whitePaperButton().click();
+        return this;
+    }
+
+    @Step("Click `One Pager` button from navigation")
+    public MainPageSteps clickOnePagerFromNavigationBar(){
+        page.navigationBar().onePagerButton().click();
+        return this;
+    }
+
 }
