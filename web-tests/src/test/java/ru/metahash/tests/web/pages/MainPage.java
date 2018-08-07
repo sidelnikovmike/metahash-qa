@@ -1,7 +1,9 @@
 package ru.metahash.tests.web.pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import ru.metahash.tests.configuration.TestsConfiguration;
 import ru.metahash.tests.core.browser.utils.BrowserUtils;
 import ru.metahash.tests.web.blocks.NavigationBar;
@@ -19,10 +21,18 @@ public class MainPage {
         return new NavigationBar();
     }
 
-    public PromoBlock promoBlock() {return new PromoBlock();}
+    public PromoBlock promoBlock() {
+        return new PromoBlock();
+    }
 
     public static MainPage openPage() {
-        return open(TestsConfiguration.getConfig().getBaseSiteUrl(), MainPage.class);
+        MainPage mainPage = open(TestsConfiguration.getConfig().getBaseSiteUrl(), MainPage.class);
+        waitForPageOpen();
+        return mainPage;
+    }
+
+    private static void waitForPageOpen() {
+        sleep(5000);
     }
 
     public void checkBlockShown(String id) {
@@ -49,5 +59,9 @@ public class MainPage {
                 elementYPosition < (pageYOffset - navigationBarHeight) ||
                         elementYPosition > (pageYOffset - navigationBarHeight) + viewPortHeight,
                 "Block with id `" + id + "` is shown on page,but should not");
+    }
+
+    public void hideChat() {
+        Selenide.executeJavaScript("$('#launcher').hide();");
     }
 }

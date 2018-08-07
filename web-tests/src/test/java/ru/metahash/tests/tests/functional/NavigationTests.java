@@ -20,7 +20,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("#MetaHash News")
+                .selectSideBarMenuElement("#MetaHash News", false)
                 .checkBlocksWithIdsShown("news");
     }
 
@@ -31,7 +31,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("What is #MetaHash?")
+                .selectSideBarMenuElement("What is #MetaHash?", false)
                 .checkBlocksWithIdsShown("whatis");
     }
 
@@ -42,7 +42,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("TraceChain")
+                .selectSideBarMenuElement("TraceChain", false)
                 .checkBlocksWithIdsShown("tracechain");
     }
 
@@ -53,7 +53,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("MetaApps")
+                .selectSideBarMenuElement("MetaApps", false)
                 .checkBlocksWithIdsShown("metaapps");
     }
 
@@ -64,7 +64,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("MetaGate")
+                .selectSideBarMenuElement("MetaGate", false)
                 .checkBlocksWithIdsShown("metagate");
     }
 
@@ -75,7 +75,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("RoadMap")
+                .selectSideBarMenuElement("RoadMap", false)
                 .checkBlocksWithIdsShown("timemap");
     }
 
@@ -86,7 +86,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("Advisors")
+                .selectSideBarMenuElement("Advisors", false)
                 .checkBlocksWithIdsShown("advisors-and-consultants");
     }
 
@@ -97,9 +97,10 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("Team")
+                .selectSideBarMenuElement("Team", false)
                 .checkBlocksWithIdsShown("teambanner");
     }
+
 // donot work- не находит блок с указанным айди
     @Test
     @DisplayName("Check show of ICO Round A block")
@@ -108,11 +109,11 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("ICO")
+                .selectSideBarMenuElement("ICO", true)
                 .checkBlocksWithIdsShown("ico");
     }
 
-    //не работает  не работает не докручивает меню и мешает чат
+    // donot work- не находит блок с указанным айди - не докручивает
     @Test
     @DisplayName("Check show of FAQ block")
     @Description("Check show of FAQ block after select in sidebar menu")
@@ -120,7 +121,8 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("F.A.Q")
+                .hideChatElement()
+                .selectSideBarMenuElement("F.A.Q", true)
                 .checkBlocksWithIdsShown("faq");
     }
 
@@ -131,11 +133,12 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("Press")
+                .hideChatElement()
+                .selectSideBarMenuElement("Press", false)
                 .checkBlocksWithIdsShown("press");
     }
 
-    // не работает не докручивает меню и мешает чат
+
     @Test
     @DisplayName("Check show of Contact us block")
     @Description("Check show of Contact us block after select in sidebar menu")
@@ -143,8 +146,8 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                //.ScrollToMenuItem("Contact") TODO: hide chat
-                .selectSideBarMenuElement("Contact")
+                .hideChatElement()
+                .selectSideBarMenuElement("Contact", true)
                 .checkBlocksWithIdsShown("contacus");
     }
 
@@ -169,7 +172,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("White Paper");
+                .selectSideBarMenuElement("White Paper", false);
 
         assertTrue(waitForWindowWithUrlOpen(
                 "https://static.metahash.org/docs/MetaHash_WhitePaper_EN.pdf?v=5",
@@ -184,7 +187,7 @@ public class NavigationTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
-                .selectSideBarMenuElement("Important");
+                .selectSideBarMenuElement("Important", false);
         BrowserUtils.checkWindowUrl("https://metahash.org/important/");
     }
 
@@ -202,7 +205,8 @@ public class NavigationTests extends BaseTest {
                 "Page not opened");
 
     }
-//do not work- не находит блок с указанным айди
+
+    //do not work- не находит блок с указанным айди - это баг
     @Test
     @DisplayName("NavBar:Contact Us")
     @Description("Check open of Contact Us from navigation bar")

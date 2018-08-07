@@ -19,8 +19,8 @@ public class MainPageSteps {
     }
 
     @Step("Select sidebar menu element by text `{text}`")
-    public MainPageSteps selectSideBarMenuElement(String text) {
-        page.navigationBar().selectElementFromMenu(text);
+    public MainPageSteps selectSideBarMenuElement(String text, boolean scrollSideBarDown) {
+        page.navigationBar().selectElementFromMenu(text, scrollSideBarDown);
         return this;
     }
 
@@ -67,6 +67,12 @@ public class MainPageSteps {
     @Step("Select language `{language}`")
     public MainPageSteps selectLanguage(String language) {
         page.navigationBar().selectLanguage(language);
+        return this;
+    }
+
+    @Step("Hide chat")
+    public MainPageSteps hideChatElement(){
+        page.hideChat();
         return this;
     }
 
