@@ -16,6 +16,8 @@ import ru.metahash.tests.core.browser.checker.service.TextChecker;
 import ru.metahash.tests.core.browser.runner.WebDriverUtils;
 import ru.metahash.tests.core.browser.utils.BrowserUtils;
 import ru.metahash.tests.core.utils.FilesUtils;
+import ru.metahash.tests.web.pages.MainPage;
+import ru.metahash.tests.web.steps.MainPageSteps;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -61,35 +63,23 @@ public class TextsCheckerTest {
     }
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         WebDriverUtils.initDriver();
     }
-
 
 
     @ParameterizedTest(name = "TextsTest: Language: {0}")
     @Description("Test to check texts on page")
     @MethodSource("testData")
     void checkTextsOnPage(String language, List<TextCheckEntity> textCheckEntities) {
-        openPage();
-        waitForPageOpen();
+        MainPageSteps mainPageSteps = new MainPageSteps().forPage(MainPage.openPage());
         removeUnusedElements();
-        selectLanguage(language);
+        mainPageSteps.selectLanguage(language);
         prepareForCheck();
         new TextChecker().checkTexts(textCheckEntities);
     }
 
-    @Step("Select language")
-    private void selectLanguage(String language) {
-        $("div[class*='lang-switch']").click();
-        $("div[class*='lang-switch-container']").shouldBe(visible.because("Language select popup not displayed"));
-        $$("div[class*='switch_item']")
-                .shouldHave(sizeGreaterThanOrEqual(1).because("Elements with language select not found in popup"))
-                .filter(attribute("data-value", language))
-                .shouldHave(size(1).because(String.format("Not found element for language `%s`", language)))
-                .first()
-                .click();
-    }
+
 
     @Step("Prepare for check")
     private void prepareForCheck() {
@@ -101,10 +91,6 @@ public class TextsCheckerTest {
         Selenide.executeJavaScript("$('#pushw_popup_container').hide();");
     }
 
-    @Step("Waiting for page open")
-    private void waitForPageOpen() {
-        sleep(5000);
-    }
 
     @Step("Opening main page")
     private void openPage() {
@@ -113,7 +99,7 @@ public class TextsCheckerTest {
 
 
     @AfterEach
-    public void afterEach(){
+    public void afterEach() {
         WebDriverUtils.finishDriver();
     }
 }

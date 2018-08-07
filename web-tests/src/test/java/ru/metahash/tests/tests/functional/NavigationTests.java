@@ -177,7 +177,6 @@ public class NavigationTests extends BaseTest {
                 "Page not opened");
     }
 
-    //надо проверить что другая страница открывается в этом же окне
     @Test
     @DisplayName("Check Important block from sidebar menu")
     @Description("Check open of Important page from sidebar menu")
@@ -186,11 +185,7 @@ public class NavigationTests extends BaseTest {
                 .forPage(MainPage.openPage())
                 .showSideBarMenu()
                 .selectSideBarMenuElement("Important");
-
-        assertTrue(waitForWindowWithUrlOpen(
-                "https://static.metahash.org/docs/MetaHash_WhitePaper_EN.pdf?v=5",
-                5) != null,
-                "Page not opened");
+        BrowserUtils.checkWindowUrl("https://metahash.org/important/");
     }
 
     @Test

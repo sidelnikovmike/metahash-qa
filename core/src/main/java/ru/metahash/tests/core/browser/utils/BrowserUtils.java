@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.sleep;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BrowserUtils {
 
@@ -89,6 +90,12 @@ public class BrowserUtils {
     @Step("Switching to window by handle")
     public static void switchToWindowByHandle(String handle) {
         WebDriverRunner.getWebDriver().switchTo().window(handle);
+    }
+
+    @Step("Check window url equals `{expectedUrl}`")
+    public static void checkWindowUrl(String expectedUrl){
+        String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
+        assertTrue(currentUrl.equals(expectedUrl), "Current url `" + currentUrl + "` not equals to expected `" + expectedUrl + "`");
     }
 
 }

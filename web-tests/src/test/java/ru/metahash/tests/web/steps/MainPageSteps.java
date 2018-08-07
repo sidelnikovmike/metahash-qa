@@ -64,4 +64,9 @@ public class MainPageSteps {
         return this;
     }
 
+    @Step("Select language `{language}`")
+    public MainPageSteps selectLanguage(String language) {
+        page.navigationBar().selectLanguage(language);
+        return this;
+    }
 }
