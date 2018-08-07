@@ -19,7 +19,7 @@ public class LocalConfigurationReader implements IConfigurationReader {
                         .withBrowserName("chrome")
                         .withBrowserVersion("67.0")
                         .withOs("Mac OSX 10.13")
-                        .withRunType(RunType.SELENOID)
+                        .withRunType(RunType.CBT)
 //                new RunConfiguration()
 //                        .withBrowserName("MicrosoftEdge")
 //                        .withBrowserVersion("17")

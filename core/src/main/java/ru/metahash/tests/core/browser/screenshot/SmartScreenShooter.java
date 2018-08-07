@@ -31,11 +31,12 @@ public class SmartScreenShooter {
     @Attachment(value = "{description}", type = "image/png")
     public static byte[] saveScreenShot(String description) {
         int pageHeight = getPageHeight();
-        long viewportHeight = getViewPortHeight() / 2;
+        long viewportHeight = getViewPortHeight();
         LOGGER.info(String.format("Viewport height: %s ", viewportHeight));
         List<byte[]> images = new ArrayList<>();
         images.add(getScreenshot());
-        int scrollCount = (int) Math.floor(pageHeight / viewportHeight);
+//        int scrollCount = (int) Math.floor(pageHeight / scrollHeight);
+        int scrollCount = 4;
         if (scrollCount > 1) {
             for (int i = 1; i < scrollCount; i++) {
                 LOGGER.info(String.format("Scrolling: %s of %s", i, scrollCount));
@@ -44,7 +45,7 @@ public class SmartScreenShooter {
                 images.add(getScreenshot());
             }
         }
-        return imageToByteArray(prepareImage(images, pageHeight * 2, getViewPortWidth() * 2, viewportHeight));
+        return imageToByteArray(prepareImage(images, pageHeight * 2, getViewPortWidth() * 2));
     }
 
 
@@ -58,11 +59,11 @@ public class SmartScreenShooter {
     }
 
     @Attachment(value = "{description}", type = "image/png")
-    private static byte[] saveSimpleScreenShot(String description, byte[] image){
+    private static byte[] saveSimpleScreenShot(String description, byte[] image) {
         return image;
     }
 
-    private static BufferedImage prepareImage(List<byte[]> images, int height, int width, long viewportHeight) {
+    private static BufferedImage prepareImage(List<byte[]> images, int height, int width) {
 //        create a new buffer and draw two image into the new image
         LOGGER.info(String.format("Image height: %s ", height));
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -72,9 +73,10 @@ public class SmartScreenShooter {
         LOGGER.info("Started preparing final image...");
         for (byte[] image : images) {
             bufImage = byteArrayToImage(image);
+            saveSimpleScreenShot(RandomStringUtils.randomNumeric(5), image);
             g2.drawImage(bufImage, null, 0, heightOffset);
             LOGGER.info(String.format("Buf image height: %s ", bufImage.getHeight()));
-            heightOffset += viewportHeight * 2;
+            heightOffset += bufImage.getHeight();
         }
         LOGGER.info("Final image preparing finished...");
         g2.dispose();
@@ -111,7 +113,6 @@ public class SmartScreenShooter {
     private static void waitForScrollFinished() {
         sleep(DEFAULT_WAIT_TIMEOUT);
     }
-
 
 
 }

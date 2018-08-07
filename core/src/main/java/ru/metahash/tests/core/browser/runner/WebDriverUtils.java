@@ -83,8 +83,6 @@ public class WebDriverUtils {
                 "\n at <" + new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) + ">"
         );
         DesiredCapabilities capabilities = getCapabilities(runConfiguration);
-        capabilities.setCapability("screenResolution", RESOLUTION_FULL_HD);
-        capabilities.setCapability("enableVNC", true);
         try {
             RemoteWebDriver driver = new RemoteWebDriver(new URL(WEB_CONFIG.getRemoteHubUrl()), capabilities);
             driver.setFileDetector(new LocalFileDetector());
@@ -101,6 +99,9 @@ public class WebDriverUtils {
         capabilities.setCapability("name", "Some test name");
         capabilities.setBrowserName(runConfiguration.getBrowserName());
         capabilities.setCapability("record_video", "true");
+        capabilities.setCapability("screenResolution", RESOLUTION_FULL_HD);
+        capabilities.setCapability("enableVNC", true);
+
         if (!runConfiguration.isMobile()) {
             capabilities.setVersion(runConfiguration.getBrowserVersion());
             capabilities.setCapability("screenResolution", "1366x768");
