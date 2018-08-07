@@ -69,4 +69,52 @@ public class MainPageSteps {
         page.navigationBar().selectLanguage(language);
         return this;
     }
+
+    @Step("Click `earn #MHC` link from promo block")
+    public MainPageSteps clickEarnMHCLink(){
+        page.promoBlock().earnMHCLink().click();
+        return this;
+    }
+
+    @Step("Click `What's market cap?` link from promo block")
+    public MainPageSteps clickMarketCapLink(){
+        page.promoBlock().marketCapLink().click();
+        return this;
+    }
+
+    @Step("Click `What’s the deal with Forging?` link from promo block")
+    public MainPageSteps clickForgingLink(){
+        page.promoBlock().forgingLink().click();
+        return this;
+    }
+
+    @Step("Click `Tell me about Multi-POS` link from promo block")
+    public MainPageSteps clickMultiPOSLink(){
+        page.promoBlock().multiPOSLink().click();
+        return this;
+    }
+
+    @Step("Download White Paper from promo block")
+    public MainPageSteps clickDownloadWhitePaperBtn(){
+        page.promoBlock().downloadWhitePaperBtn().click();
+        return this;
+    }
+
+    @Step("Download One Pager from promo block")
+    public MainPageSteps clickDownloadOnePagerBtn(){
+        page.promoBlock().downloadOnePagerBtn().click();
+        return this;
+    }
+
+    @Step("Download MetaGate client from promo block")
+    public MainPageSteps clickDownloadMetaGateBtn(){
+        page.promoBlock().downloadMetaGateBtn().click();
+        return this;
+    }
+
+    @Step("Click Telegram from promo block")
+    public MainPageSteps clickTelegramBtn(){
+        page.promoBlock().TelegramBtn().scrollTo().click();
+        return this;
+    }
 }
