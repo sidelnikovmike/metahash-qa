@@ -26,10 +26,11 @@ public class NavigationBar extends BaseBlock {
         self.$("div[class='offcanvas-button']").shouldBe(visible).click();
     }
 
-    public void selectElementFromMenu(String text) {
+    public void selectElementFromMenu(String text, boolean scrollSideBarDown) {
         getMenuElements()
                 .shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1))
                 .find(Condition.text(text).because("Element with text `" + text + "` not found in main menu"))
+                .scrollIntoView(scrollSideBarDown)
                 .click();
     }
 
