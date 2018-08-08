@@ -3,6 +3,7 @@ package ru.metahash.tests.core.browser.runner;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -132,6 +133,15 @@ public class WebDriverUtils {
             WebDriverRunner.setWebDriver(initRemoteDriver(runConfiguration));
         } else {
             System.setProperty("selenide.browser", runConfiguration.getBrowserName());
+        }
+    }
+
+    public static boolean isAlive(WebDriver driver) {
+        try {
+            driver.getCurrentUrl();
+            return true;
+        } catch (Exception ex) {
+            return false;
         }
     }
 }
