@@ -10,6 +10,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.Augmenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.metahash.tests.core.browser.domain.RunConfiguration;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -29,14 +30,14 @@ public class SmartScreenShooter {
     private static final int DEFAULT_WAIT_TIMEOUT = 3000;
 
     @Attachment(value = "{description}", type = "image/png")
-    public static byte[] saveScreenShot(String description) {
+    public static byte[] saveScreenShot(String description, RunConfiguration runConfiguration) {
         int pageHeight = getPageHeight();
         long viewportHeight = getViewPortHeight();
         LOGGER.info(String.format("Viewport height: %s ", viewportHeight));
         List<byte[]> images = new ArrayList<>();
         images.add(getScreenshot());
-//        int scrollCount = (int) Math.floor(pageHeight / scrollHeight);
-        int scrollCount = 4;
+//        int scrollCount = (int) Math.floor(pageHeight / viewportHeight);
+        int scrollCount = 2;
         if (scrollCount > 1) {
             for (int i = 1; i < scrollCount; i++) {
                 LOGGER.info(String.format("Scrolling: %s of %s", i, scrollCount));
@@ -45,7 +46,7 @@ public class SmartScreenShooter {
                 images.add(getScreenshot());
             }
         }
-        return imageToByteArray(prepareImage(images, pageHeight * 2, getViewPortWidth() * 2));
+        return imageToByteArray(prepareImage(images, pageHeight * 2, viewportHeight, runConfiguration));
     }
 
 
@@ -63,24 +64,34 @@ public class SmartScreenShooter {
         return image;
     }
 
-    private static BufferedImage prepareImage(List<byte[]> images, int height, int width) {
+    private static BufferedImage prepareImage(List<byte[]> images, int pageHeight, long viewPortHeight, RunConfiguration runConfiguration) {
 //        create a new buffer and draw two image into the new image
-        LOGGER.info(String.format("Image height: %s ", height));
-        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+        LOGGER.info(String.format("Full image height: %s ", pageHeight));
+        BufferedImage newImage = new BufferedImage(getWidth(images), pageHeight, BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g2 = newImage.createGraphics();
         int heightOffset = 0;
         BufferedImage bufImage = null;
         LOGGER.info("Started preparing final image...");
         for (byte[] image : images) {
             bufImage = byteArrayToImage(image);
+            if(runConfiguration.getScreenCropTypeValue() != null){
+                bufImage = runConfiguration
+                        .getScreenCropTypeValue()
+                        .getCropService()
+                        .cropImage(bufImage, viewPortHeight);
+            }
             saveSimpleScreenShot(RandomStringUtils.randomNumeric(5), image);
             g2.drawImage(bufImage, null, 0, heightOffset);
-            LOGGER.info(String.format("Buf image height: %s ", bufImage.getHeight()));
-            heightOffset += bufImage.getHeight();
+            LOGGER.info(String.format("Buf image height: %s ; viewport height : %s", bufImage.getHeight(), viewPortHeight));
+            heightOffset += viewPortHeight * 2;
         }
         LOGGER.info("Final image preparing finished...");
         g2.dispose();
         return newImage;
+    }
+
+    private static int getWidth(List<byte[]> images) {
+        return byteArrayToImage(images.get(0)).getWidth();
     }
 
     private static byte[] imageToByteArray(BufferedImage finalImage) {

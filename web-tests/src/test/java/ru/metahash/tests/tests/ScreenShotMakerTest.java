@@ -69,7 +69,7 @@ public class ScreenShotMakerTest {
      */
     @Step("Make screenshot")
     private void makeScreenShot(RunConfiguration runConfiguration) {
-        SmartScreenShooter.saveScreenShot("SCREEN_" + runConfiguration.toString());
+        SmartScreenShooter.saveScreenShot("SCREEN_" + runConfiguration.toString(), runConfiguration);
     }
 
     @AfterEach

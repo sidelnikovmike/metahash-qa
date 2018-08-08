@@ -18,6 +18,8 @@ public class RunConfiguration {
 
     private Map<String, String> externalConfigs;
 
+    private ScreenCropTypeValue screenCropTypeValue;
+
     public String getBrowserName() {
         return browserName;
     }
@@ -98,6 +100,14 @@ public class RunConfiguration {
         this.externalConfigs = externalConfigs;
     }
 
+    public ScreenCropTypeValue getScreenCropTypeValue() {
+        return screenCropTypeValue;
+    }
+
+    public void setScreenCropTypeValue(ScreenCropTypeValue screenCropTypeValue) {
+        this.screenCropTypeValue = screenCropTypeValue;
+    }
+
     public RunConfiguration withBrowserName(String browserName) {
         this.browserName = browserName;
         return this;
@@ -152,8 +162,17 @@ public class RunConfiguration {
         return this;
     }
 
+    public RunConfiguration withScreenCropTypeValue(final ScreenCropTypeValue screenCropTypeValue) {
+        this.screenCropTypeValue = screenCropTypeValue;
+        return this;
+    }
+
+
     @Override
-    public String toString() { //TODO: refactor to use isMobile
+    public String toString() {
+        if(isMobile){
+            return this.browserName + " " + this.deviceName + " " + this.platformName + " " + this.platformVersion + " " + this.deviceOrientation;
+        }
         return this.browserName + " " + this.browserVersion + " " + this.os;
     }
 
