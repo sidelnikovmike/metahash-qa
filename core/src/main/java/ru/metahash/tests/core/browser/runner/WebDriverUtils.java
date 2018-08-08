@@ -22,7 +22,7 @@ public class WebDriverUtils {
     private static final CBTConfiguration CBT_CONFIGURATION = CBTConfiguration.getConfig();
     private static final WebConfig WEB_CONFIG = WebConfig.getConfig();
 
-    private static final String RESOLUTION_FULL_HD = "1920x1080x24";
+    private static final String RESOLUTION_FULL_HD = "1920x1080";
     private static final Dimension DIMENSION_FULL_HD = new Dimension(1920, 1080);
 
 
@@ -96,15 +96,14 @@ public class WebDriverUtils {
 
     private static DesiredCapabilities getCapabilities(RunConfiguration runConfiguration) {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("name", "Some test name");
+        capabilities.setCapability("name", "Device: " + runConfiguration.toString());
         capabilities.setBrowserName(runConfiguration.getBrowserName());
         capabilities.setCapability("record_video", "true");
-        capabilities.setCapability("screenResolution", RESOLUTION_FULL_HD);
+//        capabilities.setCapability("screenResolution", RESOLUTION_FULL_HD);
         capabilities.setCapability("enableVNC", true);
-
         if (!runConfiguration.isMobile()) {
             capabilities.setVersion(runConfiguration.getBrowserVersion());
-            capabilities.setCapability("screenResolution", "1366x768");
+//            capabilities.setCapability("screenResolution", "1366x768");
         } else {
             capabilities.setCapability("deviceName", runConfiguration.getDeviceName());
             capabilities.setCapability("platformVersion", runConfiguration.getPlatformVersion());

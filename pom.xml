@@ -45,6 +45,7 @@
         <selenide.version>4.12.2</selenide.version>
         <guava.version>25.1-jre</guava.version>
         <junit5.version>5.2.0</junit5.version>
+        <appium.version>4.1.2</appium.version>
     </properties>
 
     <modules>

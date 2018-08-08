@@ -22,13 +22,12 @@ public class BrowserUtils {
     }
 
     public static void scrollDown(long viewportHeight) {
-        Selenide.executeJavaScript("document.documentElement.scrollTop = " + viewportHeight);
+        Selenide.executeJavaScript("window.scrollBy(0," + viewportHeight + ");");
     }
 
     public static long getViewPortHeight() {
-//        return 500; //default value for screenshots
-//        return ((Number) Selenide.executeJavaScript("return document.documentElement.clientHeight;")).intValue() / 2; //for screenshots
-        return ((Number) Selenide.executeJavaScript("return document.documentElement.clientHeight;")).intValue(); //for screenshots
+        return ((Number) Selenide.executeJavaScript("return document.documentElement.clientHeight;")).intValue();
+//        return ((Number) Selenide.executeJavaScript("return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;")).intValue(); //for screenshots
     }
 
     public static int getViewPortWidth() {
