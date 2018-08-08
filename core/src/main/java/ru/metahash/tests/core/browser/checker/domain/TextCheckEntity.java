@@ -1,5 +1,6 @@
 package ru.metahash.tests.core.browser.checker.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TextCheckEntity {
@@ -12,6 +13,16 @@ public class TextCheckEntity {
 
     public List<String> getTexts() {
         return texts;
+    }
+
+    public TextCheckEntity withLocator(String locator){
+        this.locator = locator;
+        return this;
+    }
+
+    public TextCheckEntity withTexts(String... texts){
+        this.texts = Arrays.asList(texts);
+        return this;
     }
 
     @Override

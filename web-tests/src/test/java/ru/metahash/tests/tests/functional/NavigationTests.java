@@ -216,4 +216,6 @@ public class NavigationTests extends BaseTest {
                 .clickContactUsFromNavigationBar()
                 .checkBlocksWithIdsShown("contacus");
     }
+
+
 }
