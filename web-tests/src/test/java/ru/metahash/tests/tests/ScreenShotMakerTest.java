@@ -9,12 +9,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.metahash.tests.configuration.TestsConfiguration;
 import ru.metahash.tests.core.browser.configuration.reader.impl.LocalConfigurationReader;
+import ru.metahash.tests.core.browser.domain.HideElementEntity;
 import ru.metahash.tests.core.browser.runner.WebDriverUtils;
 import ru.metahash.tests.core.browser.screenshot.SmartScreenShooter;
 import ru.metahash.tests.core.browser.domain.RunConfiguration;
 import ru.metahash.tests.core.browser.configuration.reader.IConfigurationReader;
 import ru.metahash.tests.core.browser.runner.BrowserRunEngine;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -69,11 +71,20 @@ public class ScreenShotMakerTest {
      */
     @Step("Make screenshot")
     private void makeScreenShot(RunConfiguration runConfiguration) {
-        SmartScreenShooter.saveScreenShot("SCREEN_" + runConfiguration.toString(), runConfiguration);
+        SmartScreenShooter.saveScreenShot("SCREEN_" + runConfiguration.toString(), runConfiguration, getElementsToHide());
+    }
+
+    private List<HideElementEntity> getElementsToHide() {
+        return Arrays.asList(
+                new HideElementEntity().withLocator("#pushw_popup_container").withHideOnIteration(0),
+                new HideElementEntity().withLocator("#navigation").withHideOnIteration(1),
+                new HideElementEntity().withLocator("#launcher").withHideOnIteration(1)
+        );
+
     }
 
     @AfterEach
-    public void afterEach(){
+    public void afterEach() {
         WebDriverUtils.finishDriver();
     }
 

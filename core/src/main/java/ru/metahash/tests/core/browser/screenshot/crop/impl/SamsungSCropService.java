@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 public class SamsungSCropService implements ICropService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SamsungSCropService.class);
 
-    private static final int TOP_SEARCH_STRING_HEIGHT = 100;
-    private static final int BOTTOM_SEARCH_STRING_HEIGHT = 50;
+    private static final int TOP_SEARCH_STRING_HEIGHT = 0;
+    private static final int BOTTOM_SEARCH_STRING_HEIGHT = 168;
 
     @Override
     public BufferedImage cropImage(BufferedImage src, long viewPortHeight) {

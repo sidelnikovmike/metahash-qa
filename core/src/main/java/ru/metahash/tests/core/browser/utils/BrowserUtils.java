@@ -27,7 +27,6 @@ public class BrowserUtils {
 
     public static long getViewPortHeight() {
         return ((Number) Selenide.executeJavaScript("return document.documentElement.clientHeight;")).intValue();
-//        return ((Number) Selenide.executeJavaScript("return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;")).intValue(); //for screenshots
     }
 
     public static int getViewPortWidth() {
@@ -92,9 +91,12 @@ public class BrowserUtils {
     }
 
     @Step("Check window url equals `{expectedUrl}`")
-    public static void checkWindowUrl(String expectedUrl){
+    public static void checkWindowUrl(String expectedUrl) {
         String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
         assertTrue(currentUrl.equals(expectedUrl), "Current url `" + currentUrl + "` not equals to expected `" + expectedUrl + "`");
     }
 
+    public static void hideElement(String locator) {
+        Selenide.executeJavaScript("$('" + locator + "').hide();");
+    }
 }

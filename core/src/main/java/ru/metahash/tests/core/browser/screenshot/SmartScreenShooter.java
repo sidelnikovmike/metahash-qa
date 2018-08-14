@@ -10,7 +10,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.Augmenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.metahash.tests.core.browser.domain.HideElementEntity;
 import ru.metahash.tests.core.browser.domain.RunConfiguration;
+import ru.metahash.tests.core.browser.utils.BrowserUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -27,26 +29,35 @@ import static ru.metahash.tests.core.browser.utils.BrowserUtils.*;
  */
 public class SmartScreenShooter {
     private static final Logger LOGGER = LoggerFactory.getLogger(SmartScreenShooter.class);
-    private static final int DEFAULT_WAIT_TIMEOUT = 3000;
+    private static final int DEFAULT_WAIT_TIMEOUT = 5000;
 
     @Attachment(value = "{description}", type = "image/png")
-    public static byte[] saveScreenShot(String description, RunConfiguration runConfiguration) {
+    public static byte[] saveScreenShot(String description, RunConfiguration runConfiguration, List<HideElementEntity> elementsToHide) {
         int pageHeight = getPageHeight();
         long viewportHeight = getViewPortHeight();
         LOGGER.info(String.format("Viewport height: %s ", viewportHeight));
+        hideElement(0,elementsToHide);
         List<byte[]> images = new ArrayList<>();
         images.add(getScreenshot());
-//        int scrollCount = (int) Math.floor(pageHeight / viewportHeight);
-        int scrollCount = 2;
+        int scrollCount = (int) Math.floor(pageHeight / viewportHeight);
         if (scrollCount > 1) {
             for (int i = 1; i < scrollCount; i++) {
                 LOGGER.info(String.format("Scrolling: %s of %s", i, scrollCount));
-                scrollDown(viewportHeight * i);
+                scrollDown(viewportHeight);
                 waitForScrollFinished();
+                hideElement(i,elementsToHide);
                 images.add(getScreenshot());
             }
         }
         return imageToByteArray(prepareImage(images, pageHeight * 2, viewportHeight, runConfiguration));
+    }
+
+    private static void hideElement(int iteration, List<HideElementEntity> elementsToHide) {
+        for(HideElementEntity hideElementEntity : elementsToHide){
+            if(hideElementEntity.getHideOnIteration() == iteration){
+                BrowserUtils.hideElement(hideElementEntity.getLocator());
+            }
+        }
     }
 
 
@@ -74,16 +85,15 @@ public class SmartScreenShooter {
         LOGGER.info("Started preparing final image...");
         for (byte[] image : images) {
             bufImage = byteArrayToImage(image);
-            if(runConfiguration.getScreenCropTypeValue() != null){
+            if (runConfiguration.getScreenCropTypeValue() != null) {
                 bufImage = runConfiguration
                         .getScreenCropTypeValue()
                         .getCropService()
                         .cropImage(bufImage, viewPortHeight);
             }
-            saveSimpleScreenShot(RandomStringUtils.randomNumeric(5), image);
             g2.drawImage(bufImage, null, 0, heightOffset);
             LOGGER.info(String.format("Buf image height: %s ; viewport height : %s", bufImage.getHeight(), viewPortHeight));
-            heightOffset += viewPortHeight * 2;
+            heightOffset += bufImage.getHeight();
         }
         LOGGER.info("Final image preparing finished...");
         g2.dispose();

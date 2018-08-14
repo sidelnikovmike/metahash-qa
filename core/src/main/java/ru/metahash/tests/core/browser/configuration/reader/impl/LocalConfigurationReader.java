@@ -20,15 +20,13 @@ public class LocalConfigurationReader implements IConfigurationReader {
                         .withBrowserName("Chrome")
                         .withBrowserVersion("66x64")
                         .withOs("Mac OSX 10.13")
-                        .withRunType(RunType.CBT)
-                        .withScreenCropTypeValue(ScreenCropTypeValue.DEFAULT),
-                new RunConfiguration()
+                        .withRunType(RunType.CBT),
+                new RunConfiguration() //done
                         .withBrowserName("MicrosoftEdge")
                         .withBrowserVersion("17")
                         .withOs("Windows 10")
-                        .withRunType(RunType.CBT)
-                        .withScreenCropTypeValue(ScreenCropTypeValue.DEFAULT),
-                new RunConfiguration()
+                        .withRunType(RunType.CBT),
+                new RunConfiguration() //done
                         .withIsMobile(true)
                         .withBrowserName("Safari")
                         .withDeviceName("iPhone 7 Plus Simulator")
@@ -37,7 +35,7 @@ public class LocalConfigurationReader implements IConfigurationReader {
                         .withDeviceOrientation(DeviceOrientation.PORTRAIT)
                         .withRunType(RunType.CBT)
                         .withScreenCropTypeValue(ScreenCropTypeValue.IPNONE),
-                new RunConfiguration()
+                new RunConfiguration() //done
                         .withIsMobile(true)
                         .withBrowserName("Safari")
                         .withDeviceName("iPad Air 2 Simulator")

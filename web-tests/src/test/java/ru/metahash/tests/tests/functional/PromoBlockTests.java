@@ -3,6 +3,7 @@ package ru.metahash.tests.tests.functional;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.metahash.tests.configuration.TestsConfiguration;
 import ru.metahash.tests.core.browser.utils.BrowserUtils;
 import ru.metahash.tests.web.pages.MainPage;
 import ru.metahash.tests.web.steps.MainPageSteps;
@@ -30,7 +31,7 @@ public class PromoBlockTests extends BaseTest {
         new MainPageSteps()
                 .forPage(MainPage.openPage())
                 .clickEarnMHCLink();
-        BrowserUtils.checkWindowUrl("https://metahash.org/important/#forging");
+        BrowserUtils.checkWindowUrl(TestsConfiguration.getConfig().getBaseSiteUrl() + "/important/#forging");
     }
 
     @Test

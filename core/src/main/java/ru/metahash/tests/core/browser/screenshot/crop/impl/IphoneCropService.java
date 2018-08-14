@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 public class IphoneCropService implements ICropService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IphoneCropService.class);
 
-    private static final int TOP_SEARCH_STRING_HEIGHT = 100;
-    private static final int BOTTOM_SEARCH_STRING_HEIGHT = 50;
+    private static final int TOP_SEARCH_STRING_HEIGHT = 192;
+    private static final int BOTTOM_SEARCH_STRING_HEIGHT = 132;
 
     @Override
     public BufferedImage cropImage(BufferedImage src, long viewPortHeight) {
