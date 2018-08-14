@@ -1,6 +1,5 @@
 package ru.metahash.tests.tests;
 
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
@@ -46,15 +45,9 @@ public class ScreenShotMakerTest {
         browserRunEngine.startBrowser(runConfiguration);
         openPage();
         waitForPageOpen();
-        prepareForScreenshot();
         makeScreenShot(runConfiguration);
     }
 
-    @Step("Prepare for screenshot")
-    private void prepareForScreenshot() {
-        Selenide.executeJavaScript("$('#pushw_popup_container').hide();");
-        Selenide.executeJavaScript("$('#navigation').hide();");
-    }
 
     @Step("Waiting for page open")
     private void waitForPageOpen() {
