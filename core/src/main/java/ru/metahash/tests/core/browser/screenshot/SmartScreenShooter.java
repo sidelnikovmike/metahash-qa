@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.sleep;
+import static ru.metahash.tests.core.browser.domain.HideElementEntity.ALL_ITERATION_VALUE;
 import static ru.metahash.tests.core.browser.utils.BrowserUtils.*;
 
 /**
@@ -62,7 +63,7 @@ public class SmartScreenShooter {
 
     private static void hideElement(int iteration, List<HideElementEntity> elementsToHide) {
         for (HideElementEntity hideElementEntity : elementsToHide) {
-            if (hideElementEntity.getHideOnIteration() == iteration) {
+            if (hideElementEntity.getHideOnIteration() == iteration || hideElementEntity.getHideOnIteration() == ALL_ITERATION_VALUE) {
                 BrowserUtils.hideElement(hideElementEntity.getLocator());
             }
         }

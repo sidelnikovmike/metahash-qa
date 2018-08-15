@@ -72,8 +72,7 @@ public class ScreenShotMakerTest {
                 new HideElementEntity().withLocator("#pushw_popup_container").withHideOnIteration(0),
                 new HideElementEntity().withLocator("#navigation").withHideOnIteration(1),
                 new HideElementEntity().withLocator("#launcher").withHideOnIteration(1),
-                new HideElementEntity().withLocator("div[class*='telegram-button']").withHideOnIteration(1),
-                new HideElementEntity().withLocator("div[class*='telegram-button']").withHideOnIteration(2)
+                new HideElementEntity().withLocator("div[class*='telegram-button']")
         );
 
     }

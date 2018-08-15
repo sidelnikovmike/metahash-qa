@@ -1,8 +1,9 @@
 package ru.metahash.tests.core.browser.domain;
 
 public class HideElementEntity {
+    public static final int ALL_ITERATION_VALUE = -1;
     private String locator;
-    private int hideOnIteration;
+    private int hideOnIteration = ALL_ITERATION_VALUE;
 
     public String getLocator() {
         return locator;
