@@ -42,15 +42,22 @@ public class SmartScreenShooter {
         int scrollCount = (int) Math.floor(pageHeight / viewportHeight);
         LOGGER.info(String.format("Scroll count: %s", scrollCount));
         if (scrollCount > 1) {
+            long currentYPosition = 0;
             for (int i = 1; i < scrollCount; i++) {
                 LOGGER.info(String.format("Scrolling: %s of %s", i, scrollCount));
                 scrollDown(viewportHeight);
                 waitForScrollFinished();
+                if (BrowserUtils.getPageYOffset() == currentYPosition) {
+                    LOGGER.info("Scroll finished : y offset not changed from last iteration.");
+                    break;
+                } else {
+                    currentYPosition = BrowserUtils.getPageYOffset();
+                }
                 hideElement(i, elementsToHide);
                 images.add(getScreenshot());
             }
         }
-        return imageToByteArray(prepareImage(images, pageHeight * 2, viewportHeight, runConfiguration));
+        return imageToByteArray(prepareImage(images, viewportHeight, runConfiguration));
     }
 
     private static void hideElement(int iteration, List<HideElementEntity> elementsToHide) {
@@ -76,10 +83,9 @@ public class SmartScreenShooter {
         return image;
     }
 
-    private static BufferedImage prepareImage(List<byte[]> images, int pageHeight, long viewPortHeight, RunConfiguration runConfiguration) {
+    private static BufferedImage prepareImage(List<byte[]> images, long viewPortHeight, RunConfiguration runConfiguration) {
 //        create a new buffer and draw two image into the new image
-        LOGGER.info(String.format("Full image height: %s ", pageHeight));
-        BufferedImage newImage = new BufferedImage(getWidth(images), pageHeight, BufferedImage.TYPE_3BYTE_BGR);
+        BufferedImage newImage = new BufferedImage(getWidth(images), getHeight(images), BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g2 = newImage.createGraphics();
         int heightOffset = 0;
         BufferedImage bufImage;
@@ -103,6 +109,10 @@ public class SmartScreenShooter {
 
     private static int getWidth(List<byte[]> images) {
         return byteArrayToImage(images.get(0)).getWidth();
+    }
+
+    private static int getHeight(List<byte[]> images) {
+        return byteArrayToImage(images.get(0)).getHeight() * images.size();
     }
 
     private static byte[] imageToByteArray(BufferedImage finalImage) {
