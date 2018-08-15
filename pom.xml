@@ -53,6 +53,17 @@
         <module>web-tests</module>
     </modules>
 
+    <developers>
+        <developer>
+            <name>Sidelnikov Mikhail</name>
+            <url>https://github.com/sidelnikovmike</url>
+        </developer>
+
+        <developer>
+            <name>Aleksandra Selezneva</name>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>io.qameta.allure</groupId>
