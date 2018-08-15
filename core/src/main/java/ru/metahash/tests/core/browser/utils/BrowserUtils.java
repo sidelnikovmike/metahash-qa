@@ -97,6 +97,6 @@ public class BrowserUtils {
     }
 
     public static void hideElement(String locator) {
-        Selenide.executeJavaScript("$('" + locator + "').hide();");
+        Selenide.executeJavaScript("$(\"" + locator + "\").hide();");
     }
 }

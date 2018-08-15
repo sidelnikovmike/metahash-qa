@@ -36,7 +36,7 @@ public class SmartScreenShooter {
         int pageHeight = getPageHeight();
         long viewportHeight = getViewPortHeight();
         LOGGER.info(String.format("Viewport height: %s ", viewportHeight));
-        hideElement(0,elementsToHide);
+        hideElement(0, elementsToHide);
         List<byte[]> images = new ArrayList<>();
         images.add(getScreenshot());
         int scrollCount = (int) Math.floor(pageHeight / viewportHeight);
@@ -45,7 +45,7 @@ public class SmartScreenShooter {
                 LOGGER.info(String.format("Scrolling: %s of %s", i, scrollCount));
                 scrollDown(viewportHeight);
                 waitForScrollFinished();
-                hideElement(i,elementsToHide);
+                hideElement(i, elementsToHide);
                 images.add(getScreenshot());
             }
         }
@@ -53,8 +53,8 @@ public class SmartScreenShooter {
     }
 
     private static void hideElement(int iteration, List<HideElementEntity> elementsToHide) {
-        for(HideElementEntity hideElementEntity : elementsToHide){
-            if(hideElementEntity.getHideOnIteration() == iteration){
+        for (HideElementEntity hideElementEntity : elementsToHide) {
+            if (hideElementEntity.getHideOnIteration() == iteration) {
                 BrowserUtils.hideElement(hideElementEntity.getLocator());
             }
         }
@@ -81,7 +81,7 @@ public class SmartScreenShooter {
         BufferedImage newImage = new BufferedImage(getWidth(images), pageHeight, BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g2 = newImage.createGraphics();
         int heightOffset = 0;
-        BufferedImage bufImage = null;
+        BufferedImage bufImage;
         LOGGER.info("Started preparing final image...");
         for (byte[] image : images) {
             bufImage = byteArrayToImage(image);
