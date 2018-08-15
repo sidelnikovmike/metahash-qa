@@ -35,11 +35,12 @@ public class SmartScreenShooter {
     public static byte[] saveScreenShot(String description, RunConfiguration runConfiguration, List<HideElementEntity> elementsToHide) {
         int pageHeight = getPageHeight();
         long viewportHeight = getViewPortHeight();
-        LOGGER.info(String.format("Viewport height: %s ", viewportHeight));
+        LOGGER.info(String.format("Viewport height: %s ; page height: %s", viewportHeight, pageHeight));
         hideElement(0, elementsToHide);
         List<byte[]> images = new ArrayList<>();
         images.add(getScreenshot());
         int scrollCount = (int) Math.floor(pageHeight / viewportHeight);
+        LOGGER.info(String.format("Scroll count: %s", scrollCount));
         if (scrollCount > 1) {
             for (int i = 1; i < scrollCount; i++) {
                 LOGGER.info(String.format("Scrolling: %s of %s", i, scrollCount));
