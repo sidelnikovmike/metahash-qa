@@ -9,3 +9,14 @@ Main modules:
 
 More description you could find in modules readme files
 
+## Requirements to run code
+
+* maven - version 3.3.9 or more
+* java - version 8
+* to run selenoid - docker and docker-compose
+
+## Build all code
+
+To build all code use command:
+
+    mvn clean install -Dmaven.test.skip=true
