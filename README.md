@@ -20,3 +20,6 @@ More description you could find in modules readme files
 To build all code use command:
 
     mvn clean install -Dmaven.test.skip=true
+
+
+End.
